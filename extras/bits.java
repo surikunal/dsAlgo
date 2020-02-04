@@ -35,12 +35,12 @@ public class bits {
         int count = 0;
         while (a != 0) {
             count++;
-            a &= (a-1);   
+            a &= (a-1);   //just a fact to observe
         }
         return count;
     }
 
     public static boolean is2pow(int a){
-        return a != 0 && (a & (a - 1)) == 0;
+        return a != 0 && (a & (a - 1)) == 0;        //to find a num is power of 2 or not
     }
 }
