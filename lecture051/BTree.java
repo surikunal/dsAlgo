@@ -1,5 +1,5 @@
 import java.util.Scanner;
-public class binTree {
+public class BTree {
     public static class Node {
         int data;
         Node left;

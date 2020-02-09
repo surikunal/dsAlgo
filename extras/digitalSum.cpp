@@ -8,7 +8,7 @@ int main(int args, char **argv)
     cin >> n;
 
     int sum = 0;
-    while (n > 10)
+    while (n > 9)
     {
         while (n > 0)
         {

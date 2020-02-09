@@ -21,7 +21,6 @@ void rottenOranges(vector<vector<int>> &oranges, int sr, int sc, vector<vector<i
     // {
     for (int d = 0; d < oranges.size(); d++)
     {
-        queue<int> 
         int nsr = sr + rad * dir[d][0];
         int nsc = sc + rad * dir[d][1];
         if (isSafeForOranges(nsr, nsc, oranges))
