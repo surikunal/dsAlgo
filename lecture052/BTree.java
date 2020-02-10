@@ -39,7 +39,7 @@ public class BTree {
     private static int idx = 0;
 
     public static Node createTree(int[] arr) {
-        if (idx == arr.length || arr[idx] == -1) {
+        if (idx >= arr.length || arr[idx] == -1) {
             idx++;
             return null;
         }
