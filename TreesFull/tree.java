@@ -1,3 +1,4 @@
+
 /**
  * made by Kunal
  */
@@ -13,20 +14,20 @@ public class tree {
         private Node left = null;
         private Node right = null;
 
-        Node (int data) {
+        Node(int data) {
             this.data = data;
         }
 
-        Node (int data, Node left, Node right) {
+        Node(int data, Node left, Node right) {
+            this.data = data;
             this.left = left;
             this.right = right;
-            this.data = data;
         }
     }
 
     static Node root = null;
 
-    private static void tree(int[] arr) {
+    public static void tree_(int[] arr) {
         root = construct(arr);
     }
 
@@ -43,7 +44,7 @@ public class tree {
         node.right = construct(arr);
         return node;
     }
-    
+
     public void display() {
         display(root);
     }
@@ -121,13 +122,15 @@ public class tree {
     }
 
     public static boolean find(Node node, int data) {
-        if (node == null)   return false;
-        if (node.data == data)    return true;
+        if (node == null)
+            return false;
+        if (node.data == data)
+            return true;
 
         return find(node.left, data) || find(node.right, data);
     }
 
-    //not good with memory
+    // not good with memory
     public static ArrayList<Node> rootToNodePath_01(Node node, int data) {
         if (node == null) {
             return null;
@@ -153,7 +156,7 @@ public class tree {
         return null;
     }
 
-    //better in saving memory
+    // better in saving memory
     public static boolean rootToNodePath_02(Node node, int data, ArrayList<Node> ans) {
         if (node == null) {
             return false;
@@ -176,7 +179,8 @@ public class tree {
 
         return false;
     }
-    //prit all the leafNodes in a tree
+
+    // prit all the leafNodes in a tree
     public static void leafNode(Node node) {
         if (node == null) {
             return;
@@ -195,7 +199,7 @@ public class tree {
         queue.addLast(node);
 
         while (!queue.isEmpty()) {
-            Node q = queue.removeFirst();       //also returns the removes value 
+            Node q = queue.removeFirst(); // also returns the removes value
             System.out.print(q.data + " ");
 
             if (q.left != null) {
@@ -240,7 +244,7 @@ public class tree {
     public static void levelOrder_02(Node node) {
         LinkedList<Node> queue1 = new LinkedList<>();
         LinkedList<Node> queue2 = new LinkedList<>();
-        
+
         queue1.addLast(node);
         while (!queue1.isEmpty()) {
             Node q = queue1.removeFirst();
@@ -269,7 +273,7 @@ public class tree {
         queue.addLast(node);
 
         while (!queue.isEmpty()) {
-            
+
             int size = queue.size();
             while (size-- > 0) {
                 Node q = queue.removeFirst();
@@ -316,11 +320,13 @@ public class tree {
         return ans;
     }
 
-    /* here the fact is
-    when we traverse a tree in post order 
-    then least common ancestor will always lie on the right side of both of given data */
+    /*
+     * here the fact is when we traverse a tree in post order then least common
+     * ancestor will always lie on the right side of both of given data
+     */
 
-    static Node ans = null;
+    static Node ans1 = null;
+
     public static boolean LCA_02(Node node, int data1, int data2) {
         if (node == null) {
             return false;
@@ -328,24 +334,57 @@ public class tree {
 
         boolean selfDone = node.data == data1 || node.data == data2;
 
-        /* point to notice 
-        we are traversing here in postOrder */
+        /*
+         * point to notice we are traversing here in postOrder
+         */
         boolean leftAns = LCA_02(node.left, data1, data2);
         boolean rightAns = LCA_02(node.right, data1, data2);
 
         if ((leftAns && rightAns) || (leftAns && selfDone) || (rightAns && selfDone)) {
-            ans = node;
+            ans1 = node;
         }
 
         return leftAns || rightAns || selfDone;
     }
+
+    static class pair {
+        int min = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
+        boolean isBST = true;
+        int countBST = 0;
+    }
+
+    public static pair BST(Node node) {
+        if (node == null) {
+            return new pair();
+        }
+
+        pair left = BST(node.left);
+        pair right = BST(node.right);
+        pair mypair = new pair();
+        mypair.isBST = false;
+
+        if (left.isBST && right.isBST && left.max <= node.data && right.min >= node.data) {
+            mypair.isBST = true;
+            mypair.countBST = 1;
+        }
+
+        mypair.min = Math.min(Math.min(left.min, right.min), node.data);
+        mypair.max = Math.max(Math.max(left.max, right.max), node.data);
+        mypair.countBST += left.countBST + right.countBST;
+
+        return mypair;
+    }
+
     public static void main(String[] args) {
-        // int[] arr = { 10, 20, 40, 80, -1, -1, 90, -1, -1, 50, 100, -1, -1, -1, 30, 60, -1, 110, -1, -1, 70, 120, -1, -1,
-        //     -1 };
+        // int[] arr = { 10, 20, 40, 80, -1, -1, 90, -1, -1, 50, 100, -1, -1, -1, 30,
+        // 60, -1, 110, -1, -1, 70, 120, -1, -1,
+        // -1 };
         // tree(arr);
 
-        int[] arr1 = { 10, 20, 40, -1, -1, 50, -1, -1, 30, 60, 1110, 1120, -1, 1130, -1, -1, -1, -1, 70, 80, -1, -1, 90, 100, -1, 110, -1, -1, -1};
-        tree(arr1);
+        // int[] arr1 = { 10, 20, 40, -1, -1, 50, -1, -1, 30, 60, 1110, 1120, -1, 1130,
+        // -1, -1, -1, -1, 70, 80, -1, -1, 90, 100, -1, 110, -1, -1, -1};
+        // tree_(arr1);
         // System.out.println(height(root));
 
         // System.out.println(size(root));
@@ -368,24 +407,24 @@ public class tree {
 
         // ArrayList<Node> ans = new ArrayList<>();
         // ans = rootToNodePath_01(root, 100);
-        // // Collections.reverse(ans);    //to reverse the ans
+        // // Collections.reverse(ans); //to reverse the ans
         // for (Node ele : ans) {
-        //     System.out.print(ele.data + " ");
+        // System.out.print(ele.data + " ");
         // }
         // System.out.println();
 
         // ArrayList<Node> ans1 = new ArrayList<>();
         // rootToNodePath_02(root, 100, ans1);
         // for (Node ele : ans1) {
-        //     System.out.print(ele.data + " ");
+        // System.out.print(ele.data + " ");
         // }
         // System.out.println();
-        
+
         // leafNode(root);
         // System.out.println();
-        
+
         // //level order traversals
-        
+
         // levelOrder(root);
         // System.out.println();
 
@@ -398,14 +437,24 @@ public class tree {
 
         // levelOrder_03(root);
         // System.out.println();
-        
+
         // System.out.println(LCA_01(root, 1110, 100).data);
         // System.out.println();
-        
+
         // //more optimised way for Least Common Ancestor
         // System.out.println(LCA_02(root, 90, 100));
         // if (LCA_02(root, 90, 100)) {
-        //     System.out.println(ans.data);
+        // System.out.println(ans1.data);
         // }
+
+        // // how to make a binary Tree
+
+        int[] arr2 = { 50, 30, 10, -1, 20, -1, -1, 40, -1, -1, 80, 70, 60, -1, -1, -1, 90 };
+        tree_(arr2);
+
+        System.out.println(BST(root).countBST);
+        System.out.println(BST(root).isBST);
+        System.out.println(BST(root).min);
+        System.out.println(BST(root).max);
     }
 }
