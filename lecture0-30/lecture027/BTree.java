@@ -19,9 +19,9 @@ public class BTree {
         // this.left=null;
         // }
 
-        Node(int data) {
-            this.data = data;
-        }
+        // Node(int data) {
+        //     this.data = data;
+        // }
 
         Node(int data, Node left, Node right) {
             this.data = data;
