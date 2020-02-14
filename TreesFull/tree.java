@@ -376,6 +376,103 @@ public class tree {
         return mypair;
     }
 
+    /* here the fact is
+    if we traverse in InOrder then the previous node must be smaller than current node in BST*/
+
+    static int prev = Integer.MIN_VALUE;
+    public static boolean isBST(Node node) {
+        if (node == null) {
+            return true;
+        }
+
+        boolean left = isBST(node.left);
+        if (!left)
+            return false;
+
+        if (prev < node.data) {
+            prev = node.data;
+        }
+        else {
+            return false;
+        }
+        
+        boolean right = isBST(node.right);
+        if (!right)
+            return false;
+
+        return true;
+    }
+
+    /* diameter in terms of nodes */
+    
+    public static int diameter_01(Node node) {
+        if (node == null) {
+            return 0;
+        }
+
+        int lh = height(node.left);
+        int rh = height(node.right);
+
+        int rd = diameter_01(node.right);
+        int ld = diameter_01(node.left);
+
+        return Math.max(Math.max(rd, ld), rh + lh + 1);
+    }
+
+    public static class diaPair {
+        int height = 0;
+        int dia = 0;
+    }
+
+    public static diaPair diameter_02(Node node) {
+        if (node == null) {
+            return new diaPair();
+        }
+
+        diaPair left = diameter_02(node.left);
+        diaPair right = diameter_02(node.right);
+        
+        diaPair mypair = new diaPair();
+
+        mypair.height = Math.max(left.height, right.height) + 1;
+        mypair.dia = Math.max(Math.max(left.dia, right.dia), left.height + right.height + 1);
+
+        return mypair;
+    }
+
+    /* here it is preferable to go in InOrder */
+
+    public static void deleteLeaf(Node node, int data) {
+        if (node == null) {
+            return;
+        }
+
+        if (node.left != null && node.left.data == data) {
+            node.left = null;
+        }
+
+        if (node.right != null && node.right.data == data) {
+            node.right = null;
+        }
+
+        deleteLeaf(node.left, data);
+        deleteLeaf(node.right, data);
+    }
+
+    public static Node deleteLeaf_01(Node node, int data) {
+        if (node == null) {
+            return null;
+        }
+
+        if (node.left == null && node.right == null && node.data == data) {
+            return null;
+        }
+
+        node.left = deleteLeaf_01(node.left, data);
+        node.right = deleteLeaf_01(node.right, data);
+
+        return node;
+    }
     public static void main(String[] args) {
         // int[] arr = { 10, 20, 40, 80, -1, -1, 90, -1, -1, 50, 100, -1, -1, -1, 30,
         // 60, -1, 110, -1, -1, 70, 120, -1, -1,
@@ -449,12 +546,27 @@ public class tree {
 
         // // how to make a binary Tree
 
-        int[] arr2 = { 50, 30, 10, -1, 20, -1, -1, 40, -1, -1, 80, 70, 60, -1, -1, -1, 90 };
+        int[] arr2 = { 50, 30, 10, -1, 20, -1, -1, 40, -1, -1, 80, 70, 60, -1, -1, -1, 90, -1, -1 };
         tree_(arr2);
 
-        System.out.println(BST(root).countBST);
-        System.out.println(BST(root).isBST);
-        System.out.println(BST(root).min);
-        System.out.println(BST(root).max);
+        // System.out.println(BST(root).countBST);
+        // System.out.println(BST(root).isBST);
+        // System.out.println(BST(root).min);
+        // System.out.println(BST(root).max);
+
+        // System.out.println(isBST(root));
+
+        /* find maximum length diameter of a BST */
+
+        // System.out.println(diameter_01(root));
+
+        // System.out.println(diameter_02(root).dia);   //diameter
+        // System.out.println(diameter_02(root).height);    //height
+
+        // deleteLeaf(root, 20);
+        // display(root);
+        
+        // deleteLeaf_01(root, 20);
+        // display(root);
     }
 }

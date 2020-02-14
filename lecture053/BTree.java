@@ -153,6 +153,19 @@ public class BTree {
         return myAns;
     }
 
+    static int maxDia = 0;
+    public static int diameter_03(Node node) {
+        if (node == null) {
+            return -1;
+        }
+
+        int lh = diameter_03(node.left);
+        int rh = diameter_03(node.right);
+
+        maxDia = Math.max(maxDia, lh + rh + 2);
+        return Math.max(lh, rh) + 1;
+    }
+
     public static int MaxSum = 0;
     public static int MaxSumLeafToLeaf(Node node) {
         if (node == null) {
@@ -172,7 +185,7 @@ public class BTree {
     }
 
 
-    public static int MaxSumNodeToNode()
+    // public static int MaxSumNodeToNode()
     public static void solve() {
         int[] tree1 = { 10, 20, 30, 40, -1, -1, 50, -1, -1, 60, -1, 70, -1, -1, 80, 90, 100, 120, -1, -1, 130, -1, -1,
                 110, -1, -1, 140, -1, -1 };
@@ -184,8 +197,12 @@ public class BTree {
         // System.out.println(diameter_01(root));        
         // System.out.println(diameter_02_edges(root)[0]);   //for diameter     
         // System.out.println(diameter_02_nodes(root)[0]);   //for diameter     
+        // diameter_03(root);   //for diameter     
+        // System.out.println(maxDia);
         // System.out.print(MaxSumLeafToLeaf(root));
-        System.out.print(MaxSumNodeToNode(root));
+        // System.out.print(MaxSumNodeToNode(root));
+
+
     }
 
     public static void main(String[] args) {

@@ -19,10 +19,9 @@ public class BTree {
         // this.left=null;
         // }
 
-        // Node(int data)
-        // {
-        // this.data=data;
-        // }
+        Node(int data) {
+            this.data = data;
+        }
 
         Node(int data, Node left, Node right) {
             this.data = data;
@@ -33,7 +32,7 @@ public class BTree {
 
     static Node root = null;
 
-    private static void BTree(int[] arr) {
+    private static void BTree_(int[] arr) {
         root = construct(arr);
     }
 
@@ -147,18 +146,20 @@ public class BTree {
     public static void main(String[] args) {
         // int[] arr = {10,
         // 20,40,80,-1,-1,90,-1,-1,50,100,-1,-1,-1,30,60,-1,110,-1,-1,70,120,-1,-1,-1};
-        int[] arr = { 10, 20, 40, -1, -1, 50, -1, -1, 30, 60, 1110, 1120, -1, 1130, -1, -1, -1, -1, 70, 80, -1, -1, 90,
-                100, -1, 110, -1, -1, -1 };
-        // int[] arr = {50,30,10,-1,20,-1,-1,40,-1,-1,80,70,60,-1,-1,-1,90};
-        BTree(arr);
+        // int[] arr = { 10, 20, 40, -1, -1, 50, -1, -1, 30, 60, 1110, 1120, -1, 1130, -1, -1, -1, -1, 70, 80, -1, -1, 90,
+        //         100, -1, 110, -1, -1, -1 };
+        int[] arr = {50,30,10,-1,20,-1,-1,40,-1,-1,80,70,60,-1,-1,-1,90};
+        BTree_(arr);
         // System.out.println(commonAncestor_1(root, 60, 70).data);
 
         // System.out.println(commonAncestor_2(root, 60, 70));
-        // if(commonAncestor_2(root, 60, 70))
-        // {
-        // System.out.println(LCA.data);
+        // if (commonAncestor_2(root, 60, 70)) {
+        //     System.out.println(LCA.data);
         // }
 
         System.out.println(BST(root).countBst);
+        System.out.println(BST(root).isBst);
+        System.out.println(BST(root).min);
+        System.out.println(BST(root).max);
     }
 }
