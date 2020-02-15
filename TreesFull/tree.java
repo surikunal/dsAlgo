@@ -56,9 +56,9 @@ public class tree {
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append(node.left == null ? " . " : node.left.data);
-        sb.append("=> " + node.data + " <=");
-        sb.append(node.right == null ? " . " : node.right.data);
+        sb.append(node.left == null ? "." : node.left.data);
+        sb.append(" => " + node.data + " <= ");
+        sb.append(node.right == null ? "." : node.right.data);
         System.out.println(sb.toString());
         display(node.left);
         display(node.right);
@@ -473,6 +473,72 @@ public class tree {
 
         return node;
     }
+
+    public static Node preIn(int[] pre, int[] in, int ps, int pe, int is, int ie) {
+        if (is > ie || ps > pe) {
+            return null;
+        }
+
+        Node node = new Node(pre[ps]);
+
+        int idx = is;
+        while (idx <= ie) {
+            if (in[idx] == pre[ps])
+            break;
+
+            idx++;
+        }
+
+        int tne = idx - is;
+        node.left = preIn(pre, in, ps + 1, ps + tne, is, idx - 1);
+        node.right = preIn(pre, in, ps + tne + 1, pe, idx + 1, ie);
+
+        return node;
+    }
+
+    public static Node postIn(int[] in, int[] post, int is, int ie, int ps, int pe) {
+        if (is > ie || ps > pe) {
+            return null;
+        }
+
+        Node node = new Node(post[pe]);
+
+        int idx = is;
+        while (idx <= ie) {
+            if (post[pe] == in[idx]) {
+                break;
+            }
+            idx++;
+        }
+
+        int tne = idx - is;
+        node.left = postIn(in, post, is, idx - 1, ps, ps + tne - 1);
+        node.right = postIn(in, post, idx + 1, ie, ps + tne, pe - 1 );
+
+        return node;
+    }
+
+    static Node head = null;
+    static Node prev1 = null;
+    public static void DLL(Node curr) {
+        if (curr == null) {
+            return;
+        }
+
+        DLL(curr.left);
+
+        if (head == null) {
+            head = curr;
+        }
+        else {
+            prev1.right = curr;
+            curr.left = prev1;
+        }
+
+        prev1 = curr;
+
+        DLL(curr.right);
+    }
     public static void main(String[] args) {
         // int[] arr = { 10, 20, 40, 80, -1, -1, 90, -1, -1, 50, 100, -1, -1, -1, 30,
         // 60, -1, 110, -1, -1, 70, 120, -1, -1,
@@ -546,8 +612,8 @@ public class tree {
 
         // // how to make a binary Tree
 
-        int[] arr2 = { 50, 30, 10, -1, 20, -1, -1, 40, -1, -1, 80, 70, 60, -1, -1, -1, 90, -1, -1 };
-        tree_(arr2);
+        // int[] arr2 = { 50, 30, 10, -1, 20, -1, -1, 40, -1, -1, 80, 70, 60, -1, -1, -1, 90, -1, -1 };
+        // tree_(arr2);
 
         // System.out.println(BST(root).countBST);
         // System.out.println(BST(root).isBST);
@@ -568,5 +634,24 @@ public class tree {
         
         // deleteLeaf_01(root, 20);
         // display(root);
+
+        // //to convert post , in and pre order arrays into a tree
+        // int[] pre = {10, 20, 40, 50, 60, 30, 70, 90, 80};
+        // int[] in = {40, 20, 60, 50, 10, 70, 90, 30, 80};
+        // int[] post = {40, 60, 50, 20, 90, 70, 80, 30, 10};
+
+        /* generate a tree  using in and pre order */
+        // Node root = preIn(pre, in, 0, pre.length - 1, 0, in.length - 1);
+        // display(root);
+
+        // Node root = postIn(in, post, 0, in.length - 1, 0, post.length - 1);
+        // display(root);
+
+        // DLL(root);
+        // Node itr = prev1;
+        // while (itr != null) {
+        //     System.out.print(itr.data + " ");
+        //     itr = itr.left;
+        // }
     }
 }
