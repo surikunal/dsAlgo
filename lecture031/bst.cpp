@@ -147,6 +147,8 @@ void addNode_02(Node *&node, int data) //now it is sending the address directly 
 //last is using & and this one is show us the working of &
 // in bakckgroung & is working same as this program
 
+//means & work same as ** 
+
 void addNode_03(Node **node, int data)
 {
     if ((*node) == nullptr)
@@ -208,23 +210,29 @@ void solve()
     // vector<int> arr = {10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120};
     vector<int> arr = {9, 10, 13, 25, 26, 27, 29, 30, 45, 50, 60, 63, 72, 75, 85};
     Node *root = create(arr, 0, arr.size() - 1);
-    // display(root);
+    display(root);
     cout << "\n";
+
     addNode_01(root, root, 65, true);
     display(root);
     cout<<"\n";
-    root = addNode(root, 65);
+    
+    root = addNode(root, 60);
     display(root);
     cout<<"\n";
+
     addNode_02(root, 65);
     display(root);
     cout<<"\n";
+
     addNode_03(&root, 65);
     display(root);
     cout<<"\n";
+
     deleteNode(root, 65);
     display(root);
 }
+
 int main(int args, char **argv)
 {
     solve();
