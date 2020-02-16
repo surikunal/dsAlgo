@@ -1,3 +1,4 @@
+import java.util.Stack;
 public class BST {
     
     static class Node {
@@ -133,6 +134,115 @@ public class BST {
         }
     }
 
+    /* now its our method to print all PRE , POST AND IN order traversal */
+
+    public static class Tpair {
+        Node node = null;
+        boolean sd = false;
+        boolean ld = false;
+        boolean rd = false;
+
+        Tpair (Node node) {
+            this.node = node;
+        }
+    }
+
+    public static void preOrder(Node node) {
+        Stack<Tpair> st = new Stack<>();
+        st.add(new Tpair(node));
+
+        while (st.size() != 0) {
+            Tpair tnode = st.peek();
+
+            if (!tnode.sd) {
+               tnode.sd = true;
+               System.out.print(tnode.node.data + " "); 
+            }
+
+            else if (!tnode.ld) {
+                tnode.ld = true;
+                if (tnode.node.left != null) {
+                    st.add(new Tpair(tnode.node.left));
+                }
+            }
+
+            else if (!tnode.rd) {
+                tnode.rd = true;
+                if (tnode.node.right != null) {
+                    st.add(new Tpair(tnode.node.right));
+                }
+            }
+
+            else {
+                st.pop();
+            }
+        }
+    }
+
+    public static void inOrder(Node node) {
+        Stack<Tpair> st = new Stack<>();
+        st.add(new Tpair(node));
+
+        while (st.size() != 0) {
+            Tpair tnode = st.peek();
+
+            if (!tnode.ld) {
+                tnode.ld = true;
+                if (tnode.node.left != null) {
+                    st.add(new Tpair(tnode.node.left));
+                }
+            }
+
+            else if (!tnode.sd) {
+                tnode.sd = true;
+                System.out.print(tnode.node.data + " "); 
+            }
+
+            else if (!tnode.rd) {
+                tnode.rd = true;
+                if (tnode.node.right != null) {
+                    st.add(new Tpair(tnode.node.right));
+                }
+            }
+
+            else {
+                st.pop();
+            }
+        }
+    }
+
+    public static void postOrder(Node node) {
+        Stack<Tpair> st = new Stack<>();
+        st.add(new Tpair(node));
+
+        while (st.size() != 0) {
+            Tpair tnode = st.peek();
+
+            if (!tnode.ld) {
+                tnode.ld = true;
+                if (tnode.node.left != null) {
+                    st.add(new Tpair(tnode.node.left));
+                }
+            }
+
+            else if (!tnode.rd) {
+                tnode.rd = true;
+                if (tnode.node.right != null) {
+                    st.add(new Tpair(tnode.node.right));
+                }
+            }
+            
+            else if (!tnode.sd) {
+                tnode.sd = true;
+                System.out.print(tnode.node.data + " "); 
+            }
+
+            else {
+                st.pop();
+            }
+        }
+    }
+    
     public static void BST_() {
         int[] arr = { 10, 20, 30, 40, 50, 60, 70, 80, 90, 100 };
         Node root = constructBST(arr, 0, 9);
@@ -142,10 +252,18 @@ public class BST {
         // System.out.println(minInTree(root));
         // deleteNode(root, 50);
         // display(root);
+
         /* moris traversal for inOder and preOrder */
-        morisInOrder(root);
+        // morisInOrder(root);
+        // System.out.println();
+        // morisPreOrder(root);
+
+        /* our method */
+        preOrder(root);
         System.out.println();
-        morisPreOrder(root);
+        inOrder(root);
+        System.out.println();
+        postOrder(root);
     }
     public static void main(String[] args) {
         BST_();
