@@ -111,6 +111,11 @@ public class BTree {
 
         Node root = createTree(arr);
         System.out.println(root);
+        System.out.println(height(root));
+        System.out.println(size(root));
+        System.out.println(find(root, 60));
+        System.out.println(minimumInTree(root));
+        System.out.println(maximumInTree(root));
     }
 
     public static void main(String[] args) {
