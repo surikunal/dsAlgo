@@ -25,7 +25,7 @@ public class BTree {
 
     static int idx = 0;
 
-    private static Node construct(int[] arr) {
+    public static Node construct(int[] arr) {
         if (idx >= arr.length || arr[idx] == -1) {
             idx++;
             return null;
