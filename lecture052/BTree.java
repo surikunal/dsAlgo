@@ -173,15 +173,41 @@ public class BTree {
         kDown(node.right, pnode, level - 1);
     }
 
-    public static void kAway01(Node node, int k) {
-        ArrayList<Node> list1 = rootToNodePath(node, k);
+    public static void kAway_01(Node node, int data, int k) {
+        ArrayList<Node> list1 = rootToNodePath(node, data);
         Node pnode = null;
 
-        for (int i = 0; i < list.size(); i++) {
-            kDown(list.get(i), pnode, k - i);
-            pnode = list.get(i);
+        for (int i = 0; i < list1.size(); i++) {
+            kDown(list1.get(i), pnode, k - i);
+            pnode = list1.get(i);
         }
     }
+
+    public static int kAway_02(Node node, int data, int k) {
+        if (node == null) {
+            return -1;
+        }
+
+        if (node.data == data) {
+            kDown(node, null, k);
+            return 1;
+        }
+
+        int leftDis = kAway_02(node.left, data, k);
+        if (leftDis != -1) {
+            kDown(node, node.left, k - leftDis);
+            return leftDis + 1;
+        }
+
+        int rightDis = kAway_02(node.right, data, k);
+        if (rightDis != -1) {
+            kDown(node, node.right, k - rightDis);
+            return rightDis + 1;
+        }
+
+        return -1;
+    }
+
     public static void displayNodeList(ArrayList<Node> arr)
     {
         for (Node n : arr)
@@ -190,16 +216,21 @@ public class BTree {
         }
         System.out.println();
     }
+
     public static void solve() {
         // int[] tree1 = { 10, 20, 30, 40, -1, -1, 50, -1, -1, 60, -1, 70, -1, -1, 80, 90, 100, 120, -1, -1, 130, -1, -1,
         //         110, -1, -1, 140, -1, -1 };
         
-        int[] arr = { 10, 20, 30, -1, -1, 40, 50, -1, -1, 60, -1, -1, 70, 80, 100, 101, 102, -1, -1, 110, 140, 139, -1, 142, 146, -1, -1, 141, 143, 147, -1, -1, 148, 130, -1, -1,
-            110, -1, -1, 140, -1, -1 , }
+        int[] arr = { 10, 20, 30, -1, -1, 40, 50, -1, -1, 60, -1, -1, 70, 80, 100, 101, 102, -1, -1, -1, -1,
+            110, 140, 139, -1, 142, 146, -1, -1, -1, 141, 143, 147, -1, -1, 148, -1, -1, -1, -1, 90, 191, -1,
+            -1, 180, 190, -1, -1, 200, -1, -1};
         Node root = createTree(arr);
         System.out.println(root);
         // displayNodeList(rootToNodePath(root, 100));
-        System.out.println(LCA01(root, 30, 40).data);
+        // System.out.println(LCA01(root, 30, 40).data);
+
+        // kAway_01(root, 110, 4);
+        kAway_02(root, 110, 4);
     }
 
     public static void main(String[] args) {

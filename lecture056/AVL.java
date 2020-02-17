@@ -2,10 +2,10 @@ public class AVL {
     // public static Scanner scn = new Scanner(System.in);
 
     public static void main(String[] args) {
-        AVL();
+        AVL_();
     }
 
-    public static void AVL() {
+    public static void AVL_() {
         int[] arr = { 10, 20, 30, 40, 50, 60, 70, 80, 90, 100 };
         Node root = constructBST(arr, 0, 9);
         // display(root);
@@ -13,14 +13,16 @@ public class AVL {
         // System.out.println(size(root));
         // System.out.println(find_01(root, 40)); //recursively
         // System.out.println(find_02(root, 300)); //iteratively
-        addDate(root, 200);
-        display(root);
-        System.out.println();
+        // addDate(root, 200);
+        // display(root);
+        // System.out.println();
         // System.out.println(maxInTree(root));
         // System.out.println(minInTree(root));
-        deleteNode(root, 200);
-        display(root);
+        // deleteNode(root, 200);
         // display(root);
+        // display(root);
+
+        System.out.println(rotation(root).data);
 
     }
 

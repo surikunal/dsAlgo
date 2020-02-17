@@ -97,7 +97,7 @@ public class BST {
         return false;
     }
 
-    public class allSol {
+    static class allSol {
         int height = -1;    //bcz height of null is -1
         int size = 0;
         boolean find = false;
@@ -202,9 +202,14 @@ public class BST {
         // addDate(root, 200);
         // display(root);
 
-        // allSol(root, 40, 0, );                                       #doubt
+        allSol pair = new allSol();
+        allSolution(root, 40, 0, pair);                                  
+        System.out.println(pair.height);
+        System.out.println(pair.size);
+        System.out.println(pair.find);
+        System.out.println(pair.pred.data);
 
-        predSuccForBST(root, 30);
+        // predSuccForBST(root, 30);
 
     }
 

@@ -166,41 +166,92 @@ public class BTree {
         return Math.max(lh, rh) + 1;
     }
 
-    public static int MaxSum = 0;
-    public static int MaxSumLeafToLeaf(Node node) {
+    static int maxSum = Integer.MIN_VALUE;
+    public static int leafToLeafMaxSum(Node node) {
         if (node == null) {
             return Integer.MIN_VALUE;
         }
 
-        if (node.left == null && node.right == null) {
+        if (node.left == null && node.right == null) {      //leaf node
             return node.data;
         }
 
-        int lMaxSum = MaxSumLeafToLeaf(node.left);
-        int rMaxSum = MaxSumLeafToLeaf(node.right);
+        int lmaxSum = leafToLeafMaxSum(node.left);
+        int rmaxSum = leafToLeafMaxSum(node.right);
+
         if (node.left != null && node.right != null) {
-            MaxSum = Math.max(MaxSum, lMaxSum + rMaxSum + node.data);
+            maxSum = Math.max(maxSum, lmaxSum + rmaxSum + node.data);
         }
-        return Math.max(lMaxSum, rMaxSum) + node.data;
+
+        return Math.max(lmaxSum, rmaxSum) + node.data;
     }
 
+    static int maxSum1 = Integer.MIN_VALUE;
+    public static int nodeToNodeMaxSum(Node node) {
+        if (node == null) {
+            return 0;
+        }
 
-    // public static int MaxSumNodeToNode()
+        int lmaxSum1 = nodeToNodeMaxSum(node.left);
+        int rmaxSum1 = nodeToNodeMaxSum(node.right);
+
+        int maxBranch = Math.max(lmaxSum1, rmaxSum1);
+
+        maxSum1 = Math.max(Math.max(maxSum1, node.data), Math.max(maxBranch + node.data, lmaxSum1 + rmaxSum1 + node.data));
+
+        return Math.max(maxBranch + node.data, node.data);
+    }
+
+    static int cameras = 0;
+    public static int minCameras_(Node node) {
+        if (node == null) {
+            return 0;
+        }
+
+        int left = minCameras_(node.left);
+        int right = minCameras_(node.right);
+
+        if (left == -1 || right == -1) {
+            cameras++;
+            return 1;
+        }
+
+        if (left == 1 || right == 1) {
+            return 0;
+        }
+
+        return -1;
+    }
+
+    public static int minCameras(Node node) {
+        int val = minCameras_(node);
+        if (val == -1) {
+            cameras++;
+        }
+        return cameras;
+    }
+
     public static void solve() {
         // int[] tree1 = { 10, 20, 30, 40, -1, -1, 50, -1, -1, 60, -1, 70, -1, -1, 80, 90, 100, 120, -1, -1, 130, -1, -1,
         //         110, -1, -1, 140, -1, -1 };
         
-        // int[] arr = { 10, 20, 30, -1, -1, 40, 50, -1, -1, 60, -1, -1, 70, 80, 100, 101, 102, -1, -1, 110, 140, 139, -1, 142, 146, -1, -1, 141, 143, 147, -1, -1, 148, 130, -1, -1,
-        //     110, -1, -1, 140, -1, -1};
-        // Node root = createTree(tree1);
+        int[] arr = { 10, 20, 30, 40, -1, -1, 50, -1, -1, 60, -1, 70, -1, -1, 80, 90, 100, 120, -1, -1, 130, -1, -1, 110, -1, -1, 140, -1, -1};   
+        Node root = createTree(arr);
         // System.out.println(root);
         // System.out.println(diameter_01(root));        
         // System.out.println(diameter_02_edges(root)[0]);   //for diameter     
         // System.out.println(diameter_02_nodes(root)[0]);   //for diameter     
-        // diameter_03(root);   //for diameter     
+        // diameter_03(root);   //for diameter
+
         // System.out.println(maxDia);
-        // System.out.print(MaxSumLeafToLeaf(root));
-        // System.out.print(MaxSumNodeToNode(root));
+        
+        // leafToLeafMaxSum(root);     // this function is not returning the answer we want
+        // System.out.println(maxSum); // this is the real answer
+
+        // nodeToNodeMaxSum(root);
+        // System.out.println(maxSum1);
+
+        System.out.println(minCameras(root));
     }
 
     public static void main(String[] args) {
