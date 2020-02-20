@@ -1,5 +1,5 @@
 #include<iostream>
-#include<string>
+#include<algorithm>
 #include<vector>
 
 #define pii pair<int, int>
@@ -7,7 +7,7 @@
 
 using namespace std;
 
-void desplay(vector<vector<pii>> &gp)
+void display(vector<vector<pii>> &gp)
 {
     for (int i = 0; i < gp.size(); i++)
     {
@@ -45,7 +45,57 @@ int findPar(int vtx, vector<int> &par)
     return par[vtx];
 }
 
+void kruskal_(vector<piii> &arr, int n, vector<int> &par, vector<int> &size)
+{
+    vector<vector<pii>> newGraph(n, vector<pii>());
+
+    for (int i = 0; i < arr.size(); i++) 
+    {
+        piii rp = arr[i];
+
+        int p1 = findPar(rp.second.first, par);
+        int p2 = findPar(rp.second.second, par);
+
+        if (p1 != p2)
+        {
+            merge(p1, p2, par, size);
+
+            newGraph[rp.second.first].push_back({rp.second.second, rp.first});
+            newGraph[rp.second.second].push_back({rp.second.first, rp.first});
+        }
+    }
+    display(newGraph);
+}
+
 void kruskal()
+{
+    int n = 7;
+    vector<piii> arr;
+
+    arr.push_back({10, {0, 1}});
+    arr.push_back({10, {0, 3}});
+    arr.push_back({10, {1, 2}});
+    arr.push_back({40, {2, 3}});
+    arr.push_back({2, {3, 4}});
+    arr.push_back({2, {4, 5}});
+    arr.push_back({3, {4, 6}});
+    arr.push_back({8, {5, 6}});
+
+    sort(arr.begin(), arr.end(), [](piii a, piii b) 
+    {
+        return a.first < b.first;
+    });
+
+    vector<int> par(n, 0);
+    vector<int> size(n, 1);
+    for (int i = 0; i < n; i++)
+    {
+        par[i] = i;
+    }
+
+    kruskal_(arr, n, par, size);
+
+}
 
 void solve()
 {
