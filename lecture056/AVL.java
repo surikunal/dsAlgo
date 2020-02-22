@@ -47,29 +47,14 @@ public class AVL {
         return node;
     }
 
-    // public static void display(Node node) {
-    //     if (node == null)
-    //         return;
-    //     System.out.print((node.left != null ? node.left.data : "."));
-    //     System.out.print(" -> " + node.data + " <- ");
-    //     System.out.println((node.right != null ? node.right.data : "."));
-    //     display(node.left); // display(2*idx+1);
-    //     display(node.right); // display(2*idx+2);
-    // }
-
     public static void display(Node node) {
-        if (node == null) {
+        if (node == null)
             return;
-        }
-
-        String str = "";
-
-        str += node.left == null ? " . " : node.left.data;
-        str += " -> " + node.data + " <- ";
-        str += node.right == null ? " . " : node.right.data;
-
-        display(node.left);
-        display(node.right);
+        System.out.print((node.left != null ? node.left.data : "."));
+        System.out.print(" -> " + node.data + " <- ");
+        System.out.println((node.right != null ? node.right.data : "."));
+        display(node.left); // display(2*idx+1);
+        display(node.right); // display(2*idx+2);
     }
 
     public static void updateHeightAndBalanceFactor(Node node) {
@@ -118,22 +103,22 @@ public class AVL {
         updateHeightAndBalanceFactor(node);
         if (node.bal == 2) {
             if (node.left.bal == 1) {
-                return rightRotation(node);
+                return leftRotation(node);
             }
             else if (node.left.bal == -1) {
-                node.left = leftRotation(node.left);
-                return rightRotation(node);
+                node.left = rightRotation(node.left);
+                return leftRotation(node);
             }
         }
 
         else if (node.bal == -2) {
             if (node.right.bal == -1) {
-                return leftRotation(node);
+                return rightRotation(node);
             }
 
             else if (node.right.bal == 1) {
-                node.right = rightRotation(node.right);
-                return leftRotation(node);
+                node.right = leftRotation(node.right);
+                return rightRotation(node);
             }
         }
         return node;
@@ -184,20 +169,21 @@ public class AVL {
 
         if (node.data == data) {
             if (node.left == null || node.right == null) {
-                return node.left == null ? node.right : node.left;
+                return (node.left == null ? node.right : node.left);
             }
 
-            int max = maxInTree(node.left);
-            node.data = max;
-            node.left = deleteNode(node.left, max);
+            int max_ = maxInTree(node.left);
+            node.data = max_;
+            node.left = deleteNode(node.left, max_);
         }
         
-        else if (data < node.data) {
+        if (data < node.data) {
             node.left = deleteNode(node.left, data);
         }
         
-        else
+        if(node.data < data) {
             node.right = deleteNode(node.right, data);
+        }
 
         // first update everything to correct
         node = rotation(node); // call rotation before returning
@@ -208,16 +194,17 @@ public class AVL {
         int[] arr = { 10, 20, 30, 40, 50, 60, 70, 80, 90, 100 };
         Node root = constructBST(arr, 0, arr.length - 1);
         display(root);
+        System.out.println();
         // System.out.println(height(root));
         // System.out.println(size(root));
         // System.out.println(find_01(root, 40)); //recursively
         // System.out.println(find_02(root, 300)); //iteratively
-        addDate(root, 200);
-        display(root);
-        System.out.println();
+        // addDate(root, 200);
+        // display(root);
+        // System.out.println();
         // System.out.println(maxInTree(root));
         // System.out.println(minInTree(root));
-        deleteNode(root, 200);
+        deleteNode(root, 50);
         display(root);
         // display(root);
 
