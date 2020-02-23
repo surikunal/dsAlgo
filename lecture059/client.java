@@ -33,7 +33,8 @@ public class client {
     }
 
     public static void solve() {
-        dynamicStack st = new dynamicStack(10);
+        // dynamicStack st = new dynamicStack(10);
+        // dynamicQueue st = new dynamicQueue(10);
         st.push(10);
         st.display();
     }
