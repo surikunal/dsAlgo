@@ -71,7 +71,7 @@ public class AVL {
         StringBuilder sb = new StringBuilder(); // JUST LIKE VECTOR
 
         sb.append(node.left != null ? node.left.data : " . ");
-        sb.append("->" + node.data + "<-");
+        sb.append("->" + node.data + "(" + node.balance + ")" + "<-");
         sb.append(node.right != null ? node.right.data : " . ");
         System.out.println(sb.toString());
         display(node.left);
@@ -105,10 +105,10 @@ public class AVL {
         if (node.right != null)
             rh = node.right.height;
 
-        return lh - rh;         //dont do right - left , then rotations will change
+        return (lh - rh);         //dont do right - left , then rotations will change
     }
 
-    public static void getFactor(Node node) {
+    public static void updateFactors(Node node) {
         node.height = getHeight(node);
         node.balance = getBalance(node);
     }
@@ -120,8 +120,8 @@ public class AVL {
         n.left = node;
         node.right = a;
 
-        getFactor(node);
-        getFactor(n);
+        updateFactors(node);
+        updateFactors(n);
 
         return n;
     }
@@ -129,14 +129,17 @@ public class AVL {
     public static Node rightRotation(Node node) {
         Node n = node.left;
         Node a = n.right;
+
         n.right = node;
         node.left = a;
-        getFactor(node);      // this must be updated first 
-        getFactor(n);
+
+        updateFactors(node);      // this must be updated first 
+        updateFactors(n);
+
         return n;
     }
 
-    public static Node updateFactor(Node node)
+    public static Node rotation(Node node)
     {
         if(getBalance(node) > 1)    //ll, lr
         {
@@ -166,7 +169,7 @@ public class AVL {
     public static Node addData(Node node, int data) {
         if (node == null) {
             Node base = new Node(data);
-            getFactor(base);
+            updateFactors(base);
             return base;
         }
 
@@ -176,8 +179,8 @@ public class AVL {
         else {
             node.left = addData(node.left, data);
         }
-        getFactor(node);
-        node = updateFactor(node);
+        updateFactors(node);
+        node = rotation(node);
         return node;
     }
 
@@ -213,8 +216,8 @@ public class AVL {
                 // this function will automatically be happen in java
 
                 // if(n!=null){
-                // getFactor(n);
-                // n= updateFactor(n);
+                // updateFactors(n);
+                // n= rotation(n);
                 // }
                 //node=null;
                 //   System.out.print(node);
@@ -225,24 +228,26 @@ public class AVL {
             node.data = max_;
             node.left = deleteData(node.left, max_);
         }
-        getFactor(node);
-        node = updateFactor(node);
+        updateFactors(node);
+        node = rotation(node);
         return node;
     }
     public static void main(String[] args) {
         int[] arr = { 10, 20, 30, 40, 50, 60, 70, 80, 90 };
         Node root = constructor(arr, 0, arr.length - 1);
         display(root);
-        // System.out.println();
+        System.out.println();
+
         // rightRotation(root);
         // display(root);
         // leftRotation(root);
         // display(root);
         
-        addData(root, 42);
-        display(root);
-        System.out.println();
-        deleteData(root, 42);
+        // addData(root, 42);
+        // addData(root, 43);
+        // display(root);
+        // System.out.println();
+        deleteData(root, 70);
         display(root);
     }
 }   
