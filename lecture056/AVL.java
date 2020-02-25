@@ -7,11 +7,15 @@ public class AVL {
         Node left = null;
         Node right = null;
 
-        Node(int data) {
+        public Node () {
+
+        }
+        
+        public Node(int data) {
             this.data = data;
         }
 
-        Node(int data, Node left, Node right) {
+        public Node(int data, Node left, Node right) {
             this.left = left;
             this.right = right;
             this.data = data;
@@ -36,7 +40,7 @@ public class AVL {
         }
     }
 
-    public static Node constructBST(int[] arr, int si, int ei) {
+    /* public static Node constructBST(int[] arr, int si, int ei) {
         if (si > ei) {
             return null;
         }
@@ -55,6 +59,24 @@ public class AVL {
         System.out.println((node.right != null ? node.right.data : "."));
         display(node.left); // display(2*idx+1);
         display(node.right); // display(2*idx+2);
+    } */
+
+    // or we can do 
+    // construct and display together
+
+    public static void display(Node node) {
+        if (node == null) {
+            return;
+        }
+
+        String ans = "";
+        ans += (node.left != null) ? node.left.data : " . ";
+        ans += " => " + node.data + "(" + node.bal + ")" + " <= ";
+        ans += (node.right != null) ? node.right.data : " . ";
+        System.out.println(ans);
+
+        display(node.left);
+        display(node.right);
     }
 
     public static void updateHeightAndBalanceFactor(Node node) {
@@ -105,7 +127,7 @@ public class AVL {
             if (node.left.bal == 1) {
                 return leftRotation(node);
             }
-            else if (node.left.bal == -1) {
+            else  {
                 node.left = rightRotation(node.left);
                 return leftRotation(node);
             }
@@ -116,7 +138,7 @@ public class AVL {
                 return rightRotation(node);
             }
 
-            else if (node.right.bal == 1) {
+            else {
                 node.right = leftRotation(node.right);
                 return rightRotation(node);
             }
@@ -129,33 +151,23 @@ public class AVL {
             return Integer.MIN_VALUE;
         }
 
-        while (node.right != null) {
-            node = node.right;
+        Node rnode = node;
+        while (rnode.right != null) {
+            rnode = node.right;
         }
-        return node.data;
-    }
-
-    public static int minInTree(Node node) {
-        if (node == null) {
-            return Integer.MAX_VALUE;
-        }
-
-        while (node.left != null) {
-            node = node.left;
-        }
-        return node.data;
+        return rnode.data;
     }
     
-    public static Node addDate(Node node, int data) {
+    public static Node addData(Node node, int data) {
         if (node == null) {
             return new Node(data);
         }
 
         if (data < node.data)
-            node.left = addDate(node.left, data);
+            node.left = addData(node.left, data);
 
         else
-            node.right = addDate(node.right, data);
+            node.right = addData(node.right, data);
 
          // update everything to correct
         node = rotation(node); // call rotation before returning
@@ -177,11 +189,11 @@ public class AVL {
             node.left = deleteNode(node.left, max_);
         }
         
-        if (data < node.data) {
+        else if (data < node.data) {
             node.left = deleteNode(node.left, data);
         }
         
-        if(node.data < data) {
+        else {
             node.right = deleteNode(node.right, data);
         }
 
@@ -191,8 +203,14 @@ public class AVL {
     }
 
     public static void AVL_() {
-        int[] arr = { 10, 20, 30, 40, 50, 60, 70, 80, 90, 100 };
-        Node root = constructBST(arr, 0, arr.length - 1);
+        // Node root = constructBST(arr, 0, arr.length - 1);
+        Node root = null;
+
+        // int[] arr = { 10, 20, 30, 40, 50, 60, 70, 80, 90, 100 };
+        for (int i = 1; i <= 10; i++) {
+            root = addData(root, i * 10);
+        }
+
         display(root);
         System.out.println();
         // System.out.println(height(root));
