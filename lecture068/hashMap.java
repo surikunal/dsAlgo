@@ -4,10 +4,11 @@ import java.util.HashMap;
 public class hashMap {
     public static void main(String[] args) {
         // HashMapOperation_01("iamkunalsuri");
+        // System.out.println();
         // HashMapOperation_02();
+        // System.out.println();
         // HashMapOperation_03("iamkunalsuri");
-        int[] arr = {0, 1, 2, 3, 5, 7, 8, 9, 10, 87, 88, 89, 99, 100, 101, 102, 103};
-        longestSeries(arr);
+        // System.out.println();
     }
 
     public static void HashMapOperation_01(String str) {
@@ -48,29 +49,12 @@ public class hashMap {
              * if (!map.containsKey(ch)) map.put(ch, 1); else map.put(ch, map.get(ch) + 1);
              */
 
-            // OR
+            // * OR
 
             map.put(ch, map.getOrDefault(ch, 0) + 1);
         }
 
-        for (Character ch : map.keySet())    // return a set of keys in random order
+        for (Character ch : map.keySet()) // return a set of keys in random order
             System.out.println(ch + " -> " + map.get(ch));
-    }
-
-    public static void longestSeries(int[] arr) {
-        HashMap<Integer, Boolean> map = new HashMap<>();
-        for (int ele: map) {
-            map.put(ele, true);
-        }
-
-        for (int keys: map.keySet()) {
-            if (map.containsKey(keys - 1)) {
-                map.put(keys, false);
-            }
-
-            for (int keys: map.keySet()) {
-                
-            }
-        }
     }
 }
