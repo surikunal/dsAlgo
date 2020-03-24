@@ -1,47 +1,85 @@
 class MinStack {
+
     Stack<Integer> st;
-    Stack<Integer> minSt;
+    Stack<Integer> minStack;
+    int mini = Integer.MAX_VALUE;
+
     /** initialize your data structure here. */
     public MinStack() {
         st = new Stack<>();
-        minSt = new Stack<>();
+        minStack = new Stack<>();
     }
-    
-    public void push(int x) {
-        if (st.size() == 0) {
-            st.push(x);
-            minSt.push(x);
-        }
 
-        if (x > minSt.top()) {
-            st.push(x);
-            minSt.push(minSt.peek());
+    public void push(int x) {
+        st.push(x);
+        minStack.push(Math.min(mini, x));
+        mini = minStack.peek();
+    }
+
+    public void pop() {
+        if (st.size() == 0)
+            return;
+
+        st.pop(x);
+        minStack.pop(x);
+
+        if (minStack.size() != 0) {
+            min = minStack.peek();
         }
         else {
-            st.push(x);
-            minSt.push(x);
+            min = Integer.MAX_VALUE;
         }
     }
-    
-    public void pop() {
+
+    public int top() {
+        return st.peek();
+    }
+
+    public int getMin() {
+        return minStack.peek();
+    }
+}
+
+class MinStack2 {
+    Stack<Long> st;
+    long minsf = 0;
+    public MinStack2() {
+        st = new Stack<>();
+    }
+
+    public void push(int x) {
+        long val = x;
         if (st.size() == 0) {
+            minsf = val;
+            st.push(val);
             return;
         }
 
-        if (st.top() == minSt.top()) {
-            st.pop();
-            minSt.pop();
+        if (val > minsf) {
+            st.push(val);
         }
         else {
-            st.pop();
+            st.push(val - minsf + val);
+            minsf = val;
         }
     }
-    
+
     public int top() {
-        return st.top();
+        if (st.peek() <= minsf) {
+            return (int)minsf;
+        }
+        long val = st.peek();
+        return (int) val; 
     }
-    
+
+    public void pop() {
+        if (st.peek() < minsf) {
+            minsf = minsf - st.peek() + minsf;
+        }
+        st.pop();
+    }
+
     public int getMin() {
-        return minSt.top();
+        return (int)minsf;
     }
 }
