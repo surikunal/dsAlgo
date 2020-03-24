@@ -49,30 +49,33 @@ int findKthLargest(vector<int> &arr, int k)
 
 /* leet 378 ======================================= */
 
-// int kthSmallest(vector<vector<int>> &matrix, int k)
-// {
-//     pair<int, pair<int, int>> pair;
-//     priority_queue<pair<int, pair<int, int>>> pq;
+int kthSmallest(vector<vector<int>> &matrix, int k)
+{
+    // pair<int, pair<int, int>> pair1;
+    priority_queue<pair<int, pair<int, int>>> pq;
 
-//     int n = matrix.size();
-//     int m = matrix[0].size();
-//     for (int i = 0; i < n; i++)
-//     {
-//         pq.add(matrix[i][0]); // min pq
-//         // pq.add(-matrix[i][0], i, 0);     // max pq
-//     }
+    int n = matrix.size();
+    int m = matrix[0].size();
+    for (int i = 0; i < n; i++)
+    {
+        // pq.add(new pair(matrix[i][0], i , 0)); // min pq
+        pq.push({matrix[i][0], {i, 0}}); // max pq
+    }
 
-//     while(--k > 0)
-//     {
-//         pair p = pq.pop();
-//         int x = p.i;
-//         int y = p.j;
+    while (--k > 0)
+    {
+        pair<int, pair<int, int>> p = pq.top();
+        pq.pop();
+        int x = p.second.first;
+        int y = p.second.second;
 
-//         if (++y < m)
-//             pq.add(new pair(matrix[x][y], x, y));
-//     }
-//     return pq.pop().ele;
-// }
+        if (++y < m)
+        {
+            pq.push({matrix[x][y], {x, y}});
+        }
+    }
+    return pq.top().first;
+}
 
 /* leet 703 ===================================== */
 
