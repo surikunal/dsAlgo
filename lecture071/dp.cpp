@@ -231,9 +231,82 @@ int mazepathHVD_02(int er, int ec, vii &dp)
     return dp[0][0];
 }
 
+//* memorisation
+int mazepathMultiHVD_01(int sr, int sc, int er, int ec, vii &dp)
+{
+    if (sr == er && sc == ec)
+    {
+        dp[sr][sc] = 1;
+        return 1;   
+    }
+
+    if (dp[sr][sc] != 0)
+    {
+        return dp[sr][sc];
+    }
+
+    // if (er == ec && dp[sr][sc] != 0)
+    // {
+    //     return dp[sc][sr];
+    // }
+
+    int count = 0;
+    for (int jump = 1; jump + sr <= er; jump++)
+    {
+        count += mazepathMultiHVD_01(sr + jump, sc, er, ec, dp);
+    }
+
+    for (int jump = 1; jump + sc <= ec; jump++)
+    {
+        count += mazepathMultiHVD_01(sr, sc + jump, er, ec, dp);
+    }
+
+    for (int jump = 1; jump + sr <= er && jump + sc <= ec; jump++)
+    {
+        count += mazepathMultiHVD_01(sr + jump, sc + jump, er, ec, dp);
+    }
+
+    dp[sr][sc] = count;
+    return count;
+}
+
+int mazepathMultiHVD_02(int er, int ec, vii &dp)
+{
+    for (int sr = er; sr >= 0; sr--)
+    {
+        for (int sc = ec; sc >= 0; sc--)
+        {
+            if (sr == er && sc == ec)
+            {
+                dp[sr][sc] = 1;
+                continue;
+            }
+
+            int count = 0;
+            for (int jump = 1; jump + sr <= er; jump++)
+            {
+                count += dp[sr + jump][sc];
+            }
+
+            for (int jump = 1; jump + sc <= ec; jump++)
+            {
+                count += dp[sr][sc + jump];
+            }
+
+            for (int jump = 1; jump + sr <= er && jump + sc <= ec; jump++)
+            {
+                count += dp[sr + jump][sc + jump];
+            }
+
+            dp[sr][sc] = count;
+        }
+    }
+    return dp[0][0];
+}
+
 void set_02()
 {
-    int n = 3;
+    int n = 10;
     vii arr(n, vi(n, 0));
     // cout << mazepathHV_01(0, 0, n - 1, n - 1, arr) << endl;
     // display_2D(arr);
@@ -244,12 +317,17 @@ void set_02()
     // display_2D(arr);
     // cout << mazepathHVD_02(n - 1, n - 1, arr) << endl;
     // display_2D(arr);
+
+    // cout << mazepathMultiHVD_01(0, 0, n - 1, n - 1, arr) << endl;
+    // display_2D(arr);
+    // cout << mazepathMultiHVD_02(n - 1, n - 1, arr) << endl;
+    // display_2D(arr);
 }
 
 void solve()
 {
-    // set_01();
-    // set_02();
+    set_01();
+    set_02();
 }
 
 int main(int args, char **argv)
