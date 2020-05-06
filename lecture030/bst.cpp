@@ -138,28 +138,28 @@ int LCA(Node *node, int n1, int n2)
         return node->data;
     }
 }
-Node* pre = NULL;
-Node* succ = NULL;
-void preSucc_01(Node* node, int data)
+Node *pre = NULL;
+Node *succ = NULL;
+void preSucc_01(Node *node, int data)
 {
-    if(node == nullptr)
-    return ;
+    if (node == nullptr)
+        return;
 
-    if(node -> data == data)
+    if (node->data == data)
     {
-        if(node -> left != nullptr)
+        if (node->left != nullptr)
         {
-            Node* temp = node->left;
-            while(temp->right)
+            Node *temp = node->left;
+            while (temp->right)
             {
                 temp = temp->right;
             }
             pre = temp;
         }
-        if(node->right != NULL)
+        if (node->right != NULL)
         {
-            Node* temp = node->right;
-            while(temp->left)
+            Node *temp = node->right;
+            while (temp->left)
             {
                 temp = temp->left;
             }
@@ -167,12 +167,13 @@ void preSucc_01(Node* node, int data)
         }
         return;
     }
-    if(node->data > data)
+    if (node->data > data)
     {
-        succ=root;
+        succ = root;
         preSucc_01(node->left, data);
     }
-    else{
+    else
+    {
         pre = root;
         preSucc_01(node->right, data);
     }
@@ -192,7 +193,7 @@ void solve()
 
     // cout<<LCA(root, 70, 110);
 
-    cout<<preSucc_01(root, 70);
+    cout << preSucc_01(root, 70);
 }
 int main(int args, char **argv)
 {
