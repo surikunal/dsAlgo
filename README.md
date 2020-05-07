@@ -3,10 +3,21 @@
 
 _what are we going to cover here_
 * **Basics**
+   * *patterns and all*
    * *bit manupulation*
 * **Recursion**
+   * *backtracking*
 * **Trees**
+   * *binary tree*
+   * *binary search tree*
+   * *AVL*
 * **Graphs**
+   * *BFS*
+   * *DFS*
+   * *union find*
+   * *djikstra*
+   * *prims*
+   * *kruskal*
 * **Stack and Queue**
 * **Dynamic Programming**
    * *memorisation*
