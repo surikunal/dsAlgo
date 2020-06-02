@@ -25,7 +25,7 @@ int maxSquareOf1s(int r, int c, vii &arr, vii &dp)
         return 0;
     }
 
-    if (dp[r][c] != -1)     // we are putting -1 in dp bcz 0 has some significance
+    if (dp[r][c] != -1) // we are putting -1 in dp bcz 0 has some significance
     {
         return dp[r][c];
     }
@@ -33,7 +33,7 @@ int maxSquareOf1s(int r, int c, vii &arr, vii &dp)
     int down = maxSquareOf1s(r + 1, c, arr, dp);
     int diag = maxSquareOf1s(r + 1, c + 1, arr, dp);
     int right = maxSquareOf1s(r, c + 1, arr, dp);
-    
+
     int minPossibleSquares = 0;
     if (arr[r][c] == 1)
     {
@@ -55,12 +55,12 @@ int maxSquareOf1s_02(vii &arr, vii &dp)
         for (int j = arr[0].size() - 1; j >= 0; j--)
         {
             if (arr[i][j] == 1)
-                dp[i][j] = min(dp[i + 1][ j], min(dp[i + 1][ j + 1], dp[i][j + 1])) + 1;
+                dp[i][j] = min(dp[i + 1][j], min(dp[i + 1][j + 1], dp[i][j + 1])) + 1;
 
             else
                 dp[i][j] = 0;
 
-            maxSquareAns = max(dp[i][j],maxSquareAns);
+            maxSquareAns = max(dp[i][j], maxSquareAns);
         }
     }
 
@@ -84,7 +84,7 @@ void solve()
     cout << endl;
 
     cout << maxSquareOf1s_02(arr, dp) << endl;
-    
+
     display(dp);
 
     auto end = std::chrono::steady_clock::now();

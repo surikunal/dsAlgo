@@ -23,7 +23,7 @@ bool Anagram_02(string &str1, string &str2)
 {
     int count[256] = {0};
     int i;
-    for (i = 0; str1[i] && str2[2]; i++)
+    for (i = 0; str1[i] && str2[i]; i++)
     {
         count[str1[i]]++;
         count[str2[i]]--;
@@ -50,7 +50,7 @@ bool Anagram_03(string &str1, string &str2)
     int count1[256] = {0};
     int count2[256] = {0};
     int i;
-    for (i = 0; str1[i] && str2[2]; i++)
+    for (i = 0; str1[i] && str2[i]; i++)
     {
         count1[str1[i]]++;
         count2[str2[i]]++;
@@ -73,8 +73,8 @@ bool Anagram_03(string &str1, string &str2)
 }
 void solve()
 {
-    // string str1 = "triangle", str2 = "integral";
-    string str1 = "aaaa", str2 = "a";
+    string str1 = "triangle", str2 = "integral";
+    // string str1 = "aaaa", str2 = "a";
     // cin >> str1;
     // cin >> str2;
     cout << (boolalpha) << Anagram_01(str1, str2) << endl;
