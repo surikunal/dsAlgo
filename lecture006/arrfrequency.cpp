@@ -1,53 +1,65 @@
-#include<iostream>
-#include<vector>
+#include <iostream>
+#include <vector>
 using namespace std;
 
-bool isReallyCandidate(vector<int> &arr , int data){
-    int count=0;
-    for(int i : arr){
-        if(i==data){
+bool isReallyCandidate(vector<int> &arr, int data)
+{
+    int count = 0;
+    for (int i : arr)
+    {
+        if (i == data)
+        {
             count++;
         }
     }
-    if(count>arr.size()/2){
+    if (count > arr.size() / 2)
+    {
         return true;
     }
     return false;
 }
-int potentialCandidate(vector<int> &arr){
-    int freq=1;
-    int suspect=arr[0];
+int potentialCandidate(vector<int> &arr)
+{
+    int freq = 1;
+    int suspect = arr[0];
 
-    for(int i=1 ; i<arr.size() ; i++){      /* here the loop is started from 1 because the
+    for (int i = 1; i < arr.size(); i++)
+    { /* here the loop is started from 1 because the
                                             zeroth position is already been included*/
-        if(suspect==arr[i]){
+        if (suspect == arr[i])
+        {
             freq++;
         }
-        else{
+        else
+        {
             freq--;
         }
-        if(freq==0){
-            freq=1;
-            suspect=arr[i];
+        if (freq == 0)
+        {
+            freq = 1;
+            suspect = arr[i];
         }
     }
     return suspect;
 }
-void votingAlgo(){
-    vector<int> arr={2,3,4,3,2,2,2,2,3,2,2,2};
-    int potential=potentialCandidate(arr);
-    bool ans=isReallyCandidate(arr , potential);
+void votingAlgo()
+{
+    vector<int> arr = {2, 3, 4, 3, 2, 2, 2, 2, 3, 2, 2, 2};
+    int potential = potentialCandidate(arr);
+    bool ans = isReallyCandidate(arr, potential);
 
-    if(ans){
-        cout<<"potential : "<<potential;
+    if (ans)
+    {
+        cout << "potential : " << potential;
     }
-    else{
-        cout<<"potential : "<< -1 <<endl;
+    else
+    {
+        cout << "potential : " << -1 << endl;
     }
 }
 
-int main(){
+int main()
+{
     votingAlgo();
     return 0;
 }
-        

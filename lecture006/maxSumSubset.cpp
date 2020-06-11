@@ -26,15 +26,17 @@ int maximumSumSubset(vector<int> &arr)
 
 int main(int args, char **argv)
 {
-    vector<int> arr{-2, -3, 4, -1, -2, 1, 5, -3};   // ans = 7
+    vector<int> arr{-2, -3, 4, -1, -2, 1, 5, -3}; // ans = 7
     cout << maximumSumSubset(arr) << endl;
 }
 
 // here array can be all negetive
 
-class Solution {
+class Solution
+{
 public:
-    int maxSubArray(vector<int>& arr) {
+    int maxSubArray(vector<int> &arr)
+    {
         int imax = 0;
         int omax = INT_MIN;
         for (int i = 0; i < arr.size(); i++)
@@ -43,11 +45,11 @@ public:
             {
                 imax = arr[i];
             }
-            else 
+            else
             {
-                imax += arr[i];            
+                imax += arr[i];
             }
-            
+
             if (imax > omax)
             {
                 omax = imax;
