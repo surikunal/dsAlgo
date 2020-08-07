@@ -138,7 +138,8 @@ public class BTree {
         ArrayList<Node> path1 = rootToNodePath(node, data1);
         ArrayList<Node> path2 = rootToNodePath(node, data2);
 
-        // here checkpoint for "if any node is null" is not required due to AND in while loop
+        // here checkpoint for "if any node is null" is not required due to AND in while
+        // loop
 
         Node ans = null;
         int i = path1.size() - 1;
@@ -146,8 +147,7 @@ public class BTree {
         while (i >= 0 && j >= 0) {
             if (path1.get(i).data == path2.get(j).data) {
                 ans = path1.get(i);
-            }
-            else {
+            } else {
                 break;
             }
             i--;
@@ -157,10 +157,11 @@ public class BTree {
     }
 
     // =====================================================
-    // leetcode 863 
+    // leetcode 863
     // print all nodes at distance K from a given node
 
-    public static void kDown(Node node, Node pnode, int level) {        // function to go down in tree form a node to the target
+    public static void kDown(Node node, Node pnode, int level) { // function to go down in tree form a node to the
+                                                                 // target
         if (node == null || node == pnode) {
             return;
         }
@@ -208,22 +209,21 @@ public class BTree {
         return -1;
     }
 
-    public static void displayNodeList(ArrayList<Node> arr)
-    {
-        for (Node n : arr)
-        {
+    public static void displayNodeList(ArrayList<Node> arr) {
+        for (Node n : arr) {
             System.out.print(n.data + " ");
         }
         System.out.println();
     }
 
     public static void solve() {
-        // int[] tree1 = { 10, 20, 30, 40, -1, -1, 50, -1, -1, 60, -1, 70, -1, -1, 80, 90, 100, 120, -1, -1, 130, -1, -1,
-        //         110, -1, -1, 140, -1, -1 };
-        
-        int[] arr = { 10, 20, 30, -1, -1, 40, 50, -1, -1, 60, -1, -1, 70, 80, 100, 101, 102, -1, -1, -1, -1,
-            110, 140, 139, -1, 142, 146, -1, -1, -1, 141, 143, 147, -1, -1, 148, -1, -1, -1, -1, 90, 191, -1,
-            -1, 180, 190, -1, -1, 200, -1, -1};
+        // int[] tree1 = { 10, 20, 30, 40, -1, -1, 50, -1, -1, 60, -1, 70, -1, -1, 80,
+        // 90, 100, 120, -1, -1, 130, -1, -1,
+        // 110, -1, -1, 140, -1, -1 };
+
+        int[] arr = { 10, 20, 30, -1, -1, 40, 50, -1, -1, 60, -1, -1, 70, 80, 100, 101, 102, -1, -1, -1, -1, 110, 140,
+                139, -1, 142, 146, -1, -1, -1, 141, 143, 147, -1, -1, 148, -1, -1, -1, -1, 90, 191, -1, -1, 180, 190,
+                -1, -1, 200, -1, -1 };
         Node root = createTree(arr);
         System.out.println(root);
         // displayNodeList(rootToNodePath(root, 100));
