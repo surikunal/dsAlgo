@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class My_graph {
-    public class Edge {
+    public static class Edge {
         int v = 0;
         int w = 0;
 
