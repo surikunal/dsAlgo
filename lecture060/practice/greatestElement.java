@@ -33,7 +33,7 @@ class greatestElement {
             System.out.println(st.pop() + "->-1");
         }
     }
-
+ 
     public static void greatestElementLeft(int[] arr) {
         Stack<Integer> st = new Stack<>();
         for (int i = arr.length - 1; i >= 0; i--) {

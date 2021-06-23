@@ -1,6 +1,6 @@
 
 /* leecode 350, 349 */
-
+import java.util.HashMap;
 class Solution {
     public void GetCommonSeries(int[] one, int[] two) {
         HashMap<Integer, Boolean> map = new HashMap<>();
@@ -18,7 +18,7 @@ class Solution {
     }
 }
 
-class Solution {
+class Solution1 {
     public static void GetCommonSeries02(int[] one, int[] two) {
         HashMap<Integer, Integer> map = new HashMap<>();
         for (int ele : one) {
