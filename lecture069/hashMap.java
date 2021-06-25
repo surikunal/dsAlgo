@@ -19,7 +19,7 @@ public class hashMap {
         }
     }
 
-    private int size = 0;
+    // private int size = 0;
     private LinkedList<Node>[] buckets = new LinkedList[10]; // int[] buckets = new int[];
 
     public hashMap() { // here we are making new linkedlist at every positoin
