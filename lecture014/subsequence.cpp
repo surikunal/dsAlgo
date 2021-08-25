@@ -24,7 +24,7 @@ int subsequence(string str, string ans)
     if (str.size() == 0)
     {
         cout << ans << " ";
-        return 1; 
+        return 1;
     }
     char ch = str[0];
     string roq = str.substr(1);

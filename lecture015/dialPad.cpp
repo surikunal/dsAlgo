@@ -24,8 +24,7 @@ int dialPad(string ques, string ans)
 }
 void solve()
 {
-    cout << endl
-         << dialPad("235", "");
+    cout << endl << dialPad("235", "");
 }
 int main(int args, char **argv)
 {

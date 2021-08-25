@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <algorithm>
 
 using namespace std;
 int mazePath(int sr, int sc, int er, int ec, string ans)
@@ -15,6 +16,7 @@ int mazePath(int sr, int sc, int er, int ec, string ans)
     {
         leftHeight = mazePath(sr + 1, sc, er, ec, ans + "V") + 1;
     }
+    
     if (sc + 1 <= ec)
     {
         rightHeight = mazePath(sr, sc + 1, er, ec, ans + "H") + 1;

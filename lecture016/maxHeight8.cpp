@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <algorithm>
 #include <vector>
 using namespace std;
 bool isValidLocation(vector<vector<bool>> &isdone, int x, int y)

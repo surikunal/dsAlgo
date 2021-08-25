@@ -9,7 +9,6 @@ int mazePath(int sr, int sc, int er, int ec, string ans)
     if (sr == er && sc == ec)
     {
         cout << ans << "\n";
-
         return 1;
     }
     int count = 0;
